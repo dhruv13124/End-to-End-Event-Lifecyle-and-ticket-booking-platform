@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EVENTARA</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .auth-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at center, var(--nebula) 0%, var(--void) 100%);
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            z-index: 1;
+            animation: floatOrb linear infinite;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--glow-purple);
+            top: -50px;
+            left: -50px;
+            animation-duration: 8s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--neon-cyan);
+            bottom: -100px;
+            right: -50px;
+            animation-duration: 10s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-30px) scale(1.05);
+            }
+        }
+
+        .auth-card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 440px;
+            padding: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-bg">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+    </div>
+
+    <div class="card auth-card float-hover">
+        <a href="/" style="text-decoration:none">
+            <h2 style="font-weight:900; letter-spacing:1px; margin-bottom:5px;">EVENTARA</h2>
+        </a>
+        <p class="label text-secondary mb-2">Welcome Back to the Future</p>
+
+        <form id="loginForm" class="flex-column gap-1" style="text-align: left;">
+            <div>
+                <label class="label mb-1" style="display:block">Email Address</label>
+                <input type="email" id="email" class="input-field" required placeholder="name@domain.com">
+            </div>
+            <div>
+                <label class="label mb-1" style="display:block">Password</label>
+                <input type="password" id="password" class="input-field" required placeholder="••••••••">
+            </div>
+
+            <div class="d-flex justify-between align-center mt-1">
+                <label style="display:flex; align-items:center; gap:8px; font-size:0.9rem; color:var(--text-secondary)">
+                    <input type="checkbox"> Remember me
+                </label>
+                <a href="#" onclick="alert('Forgot password coming soon'); return false;"
+                    style="color:var(--glow-purple-light); text-decoration:none; font-size:0.9rem;">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mt-2" id="loginBtn">Sign In to Dashboard</button>
+        </form>
+
+        <p class="mt-2" style="font-size:0.9rem; color:var(--text-secondary)">
+            New to Eventara? <a href="/register.html"
+                style="color:var(--neon-cyan); text-decoration:none; font-weight:600;">Create an Account</a>
+        </p>
+    </div>
+
+    <script type="module" src="/js/auth.js"></script>
+</body>
+
+</html>

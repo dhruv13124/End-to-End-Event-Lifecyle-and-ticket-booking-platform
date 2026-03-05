@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Ticket - EVENTARA</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .auth-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at center, var(--nebula) 0%, var(--void) 100%);
+        }
+
+        .scan-card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .result-card {
+            display: none;
+            margin-top: 30px;
+            animation: slideIn 0.3s;
+            text-align: left;
+            padding: 20px;
+        }
+
+        .result-success {
+            border-left: 4px solid var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .result-error {
+            border-left: 4px solid var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .scanner-ui {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 30px auto;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .scanner-ui::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--success);
+            top: 50%;
+            left: 0;
+            box-shadow: 0 0 10px var(--success);
+            animation: scanLine 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes scanLine {
+            0% {
+                top: 10%;
+            }
+
+            100% {
+                top: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-bg"></div>
+
+    <div class="card scan-card float-hover">
+        <h2 style="font-weight:900; letter-spacing:1px; margin-bottom:5px;">TICKET VERIFIER</h2>
+        <p class="label text-secondary mb-4">Confirm authenticity instantly</p>
+
+        <div class="scanner-ui">
+            <span style="color:var(--text-muted)">Point camera at QR (Demo)</span>
+        </div>
+
+        <form id="verifyForm" class="d-flex gap-1">
+            <input type="text" id="tCode" class="input-field" required placeholder="Enter Ticket Code (TKT-...)"
+                style="text-transform:uppercase">
+            <button type="submit" class="btn btn-primary" id="vBtn">Verify</button>
+        </form>
+
+        <div class="card result-card" id="rCard">
+            <h3 id="rTitle" class="mb-1"></h3>
+            <p id="rMsg" class="mb-2" style="color:var(--text-secondary); font-size:0.9rem"></p>
+
+            <div id="rDetails" style="display:none; border-top:1px solid var(--border); padding-top:10px;">
+                <div class="label" style="color:var(--glow-purple-light)">Event</div>
+                <p id="rEvent" class="mb-1 w-100" style="font-weight:bold;"></p>
+
+                <div class="d-flex justify-between">
+                    <div>
+                        <div class="label" style="color:var(--glow-purple-light)">Attendee</div>
+                        <p id="rName" style="font-weight:bold;"></p>
+                    </div>
+                    <div style="text-align:right">
+                        <div class="label" style="color:var(--glow-purple-light)">Type</div>
+                        <p id="rType" style="font-weight:bold;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4"><a href="/" class="btn btn-outline btn-small">Return Home</a></div>
+    </div>
+
+    <script type="module" src="/js/scan.js"></script>
+</body>
+
+</html>

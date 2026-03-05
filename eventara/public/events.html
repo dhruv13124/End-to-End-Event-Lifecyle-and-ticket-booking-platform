@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Events - EVENTARA</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/landing.css">
+    <style>
+        .filter-bar {
+            position: sticky;
+            top: 70px;
+            background: rgba(5, 5, 15, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 90;
+            padding: 15px 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-bar .input-field {
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            max-width: 200px;
+        }
+
+        .view-toggle {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .view-toggle button {
+            background: transparent;
+            border: none;
+            padding: 8px 15px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .view-toggle button.active {
+            background: var(--glow-purple-faint);
+            color: var(--text-primary);
+        }
+
+        .events-layout {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .events-main {
+            flex: 1;
+        }
+
+        /* List View tweaks */
+        .event-grid.list-view {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-grid.list-view .event-card {
+            flex-direction: row;
+            height: 180px;
+        }
+
+        .event-grid.list-view .event-card-banner {
+            width: 250px;
+            height: 100%;
+            border-right: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .event-grid.list-view .event-card {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .event-grid.list-view .event-card-banner {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body style="padding-top: 70px;">
+
+    <nav class="navbar" id="mainNav">
+        <a href="/" class="navbar-brand">EVENTARA</a>
+        <div class="navbar-nav">
+            <a href="/events.html" class="nav-link" style="color: #fff">Explore</a>
+            <a href="/login.html" class="btn btn-outline" id="navLoginBtn">Login</a>
+            <a href="/dashboard.html" class="btn btn-primary" id="navDashBtn" style="display:none">Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="filter-bar" id="filterBar">
+        <input type="text" id="fSearch" class="input-field" placeholder="Search...">
+        <select id="fCategory" class="input-field">
+            <option value="">All Categories</option>
+            <option value="concert">Concert</option>
+            <option value="conference">Conference</option>
+            <option value="workshop">Workshop</option>
+            <option value="sports">Sports</option>
+            <option value="festival">Festival</option>
+        </select>
+        <select id="fFormat" class="input-field">
+            <option value="">Any Format</option>
+            <option value="in-person">In-Person</option>
+            <option value="virtual">Virtual</option>
+            <option value="hybrid">Hybrid</option>
+        </select>
+        <input type="text" id="fCity" class="input-field" placeholder="City...">
+        <select id="fSort" class="input-field">
+            <option value="upcoming">Upcoming</option>
+            <option value="newest">Newest</option>
+            <option value="popular">Most Popular</option>
+            <option value="rating">Top Rated</option>
+        </select>
+
+        <div style="flex:1"></div>
+
+        <div class="view-toggle">
+            <button id="viewGrid" class="active">Grid</button>
+            <button id="viewList">List</button>
+        </div>
+    </div>
+
+    <div class="container events-layout mb-4">
+        <div class="events-main">
+            <div class="d-flex justify-between align-center mb-2">
+                <h2 id="resultCount">Loading events...</h2>
+                <button class="btn-outline btn-small" id="resetFilters">Reset Filters</button>
+            </div>
+
+            <div class="event-grid" id="eventsContainer">
+                <!-- Rendered by JS -->
+            </div>
+
+            <div class="d-flex justify-center mt-4" id="pagination">
+                <!-- Pagination logic -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/events-page.js"></script>
+</body>
+
+</html>

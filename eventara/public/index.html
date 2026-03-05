@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVENTARA — End-to-End Event Lifecycle & Ticketing Platform</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/landing.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">EVENTARA</a>
+    <div class="navbar-nav">
+      <a href="/events.html" class="nav-link">Explore Events</a>
+      <a href="/login.html" class="btn btn-outline">Login</a>
+      <a href="/register.html" class="btn btn-primary">Sign Up</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+
+    <div class="container hero-content">
+      <h1 class="hero-title">
+        Experience Events <br> <span class="gradient-text">Beyond Reality</span>
+      </h1>
+      <p class="mt-1"
+        style="color: var(--text-secondary); font-size: 1.2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+        The premier platform for discovering, booking, and hosting extraordinary events across the galaxy.
+      </p>
+
+      <div class="mt-2 d-flex justify-center gap-1">
+        <a href="/events.html" class="btn btn-primary">Explore Events</a>
+        <a href="/register.html" class="btn btn-outline" onclick="localStorage.setItem('roleIntent', 'organizer')">Host
+          an Event</a>
+      </div>
+
+      <div class="search-bar-float">
+        <span style="padding-left:10px">🔍</span>
+        <input type="text" id="heroSearch" placeholder="Search events, organizers, tags...">
+        <div class="divider"></div>
+        <select id="heroCity">
+          <option value="">Any City</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Bangalore">Bangalore</option>
+          <option value="Virtual">Virtual</option>
+        </select>
+        <button class="btn btn-primary"
+          onclick="window.location.href='/events.html?search='+document.getElementById('heroSearch').value+'&city='+document.getElementById('heroCity').value">Find
+          Events</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats-section">
+    <div class="container stats-grid" id="statsObserver">
+      <div class="stat-card">
+        <h3 class="count-up" data-target="50000">0</h3>
+        <p class="label mt-1">Events Hosted</p>
+      </div>
+      <div class="stat-card">
+        <h3 class="count-up" data-target="2000000">0</h3>
+        <p class="label mt-1">Tickets Sold</p>
+      </div>
+      <div class="stat-card">
+        <h3 class="count-up" data-target="180">0</h3>
+        <p class="label mt-1">Cities</p>
+      </div>
+      <div class="stat-card">
+        <h3 class="count-up" data-target="500000">0</h3>
+        <p class="label mt-1">Happy Attendees</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container mt-4 mb-4" style="padding-top: 60px;">
+    <div class="d-flex justify-between align-center">
+      <h2>🔥 Trending Events</h2>
+      <a href="/events.html?featured=true" class="btn btn-outline btn-small">View All</a>
+    </div>
+    <div class="event-grid" id="featuredEvents">
+      <!-- Skeletons populated by JS -->
+    </div>
+  </section>
+
+  <section class="container mt-4 mb-4" style="padding-top: 40px;">
+    <h2 class="text-center mb-2">Browse by Vibe</h2>
+    <div class="category-grid">
+      <a href="/events.html?category=concert" class="category-card" style="--glow-purple: #ec4899">
+        <div class="category-icon">🎸</div>
+        <h4>Concerts</h4>
+      </a>
+      <a href="/events.html?category=conference" class="category-card" style="--glow-purple: #06b6d4">
+        <div class="category-icon">🎤</div>
+        <h4>Conferences</h4>
+      </a>
+      <a href="/events.html?category=workshop" class="category-card" style="--glow-purple: #f59e0b">
+        <div class="category-icon">🛠️</div>
+        <h4>Workshops</h4>
+      </a>
+      <a href="/events.html?category=sports" class="category-card" style="--glow-purple: #10b981">
+        <div class="category-icon">🏆</div>
+        <h4>Sports</h4>
+      </a>
+      <a href="/events.html?category=festival" class="category-card" style="--glow-purple: #a855f7">
+        <div class="category-icon">🎪</div>
+        <h4>Festivals</h4>
+      </a>
+      <a href="/events.html?category=comedy" class="category-card" style="--glow-purple: #ef4444">
+        <div class="category-icon">😂</div>
+        <h4>Comedy</h4>
+      </a>
+      <a href="/events.html?category=networking" class="category-card" style="--glow-purple: #3b82f6">
+        <div class="category-icon">🤝</div>
+        <h4>Networking</h4>
+      </a>
+      <a href="/events.html?category=other" class="category-card" style="--glow-purple: #64748b">
+        <div class="category-icon">✨</div>
+        <h4>More</h4>
+      </a>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>Don't Miss Out</h2>
+      <p class="mt-1 mb-2" style="color:var(--text-secondary)">Subscribe to our newsletter for exclusive early access to
+        events.</p>
+      <div class="d-flex justify-center gap-1" style="max-width: 500px; margin: 0 auto;">
+        <input type="email" id="newsEmail" class="input-field" placeholder="Enter your email...">
+        <button class="btn btn-primary" onclick="subscribe()">Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center" style="color:var(--text-muted)">
+    <div class="container">
+      <h3 style="color:#fff; margin-bottom: 10px;">EVENTARA</h3>
+      <p>&copy; 2026 EVENTARA Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/landing.js?v=2"></script>
+</body>
+
+</html>

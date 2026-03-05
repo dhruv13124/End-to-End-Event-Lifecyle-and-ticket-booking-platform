@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - EVENTARA</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .event-hero {
+            width: 100%;
+            height: 480px;
+            position: relative;
+            background: var(--space);
+        }
+
+        .event-hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(transparent, var(--void) 90%);
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 40px;
+        }
+
+        .hero-info-pills {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .hero-info-pill {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .layout-2col {
+            display: grid;
+            grid-template-columns: 65% 32%;
+            gap: 3%;
+            margin-top: 40px;
+            align-items: start;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            padding: 10px 0;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .tab.active {
+            color: var(--glow-purple-light);
+            border-color: var(--glow-purple);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .sticky-sidebar {
+            position: sticky;
+            top: 90px;
+        }
+
+        .ticket-type-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--glow-purple);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .qty-btn {
+            background: var(--glass-border);
+            border: none;
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .attendee-form {
+            background: rgba(5, 5, 15, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .timer-box {
+            font-family: 'Poppins';
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 1024px) {
+            .layout-2col {
+                grid-template-columns: 1fr;
+            }
+
+            .sticky-sidebar {
+                position: relative;
+                top: 0;
+                margin-top: 40px;
+                padding-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">EVENTARA</a>
+        <div class="navbar-nav">
+            <a href="/events.html" class="nav-link">Explore</a>
+            <a href="/dashboard.html" class="btn btn-outline">Dashboard</a>
+        </div>
+    </nav>
+
+    <div id="pageLoader" style="padding-top:100px; text-align:center; color:var(--text-muted)">Loading Event Data...
+    </div>
+
+    <div id="eventWrapper" style="display:none">
+        <div class="event-hero">
+            <img id="eBanner" class="event-hero-img" src="" alt="Banner" onerror="this.style.display='none'">
+            <div class="event-hero-overlay">
+                <div class="container">
+                    <div class="badge badge-glass mb-1" id="eCategory">Category</div>
+                    <div class="badge badge-glass mb-1 ml-1" id="eFormat" style="border-color:var(--neon-cyan)">Format
+                    </div>
+                    <h1 id="eTitle" style="margin-bottom: 10px;">Event Title</h1>
+                    <p id="eTagline" style="font-size:1.2rem; color:var(--text-secondary); max-width:800px;"></p>
+                    <div class="hero-info-pills">
+                        <div class="hero-info-pill">📅 <span id="eDate"></span></div>
+                        <div class="hero-info-pill">📍 <span id="eVenue"></span></div>
+                        <div class="hero-info-pill">⭐ <span id="eRating"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container layout-2col">
+            <div class="left-col">
+                <div class="tabs">
+                    <div class="tab active" data-target="tab-about">About</div>
+                    <div class="tab" data-target="tab-schedule">Schedule</div>
+                    <div class="tab" data-target="tab-tickets">Tickets</div>
+                    <div class="tab" data-target="tab-reviews">Reviews</div>
+                </div>
+
+                <div id="tab-about" class="tab-content active">
+                    <div class="card p-4 mb-4" style="padding:20px; margin-bottom: 30px;">
+                        <div class="d-flex align-center gap-1 mb-2">
+                            <div id="orgLogo"
+                                style="width:60px; height:60px; border-radius:50%; background:var(--nebula); display:flex; align-items:center; justify-content:center;">
+                                🏢</div>
+                            <div>
+                                <div class="label">Organized By</div>
+                                <h3 id="orgName">Organizer Name</h3>
+                            </div>
+                        </div>
+                        <p id="orgBio" style="color:var(--text-secondary); font-size:0.9rem;"></p>
+                    </div>
+
+                    <h3>About This Event</h3>
+                    <div id="eDesc" class="mt-1" style="color:var(--text-secondary); white-space: pre-wrap;"></div>
+
+                    <div class="mt-2 mb-2" id="eTags"></div>
+                </div>
+
+                <div id="tab-schedule" class="tab-content">
+                    <div class="card p-4" style="padding:20px">
+                        <h3>Event Schedule</h3>
+                        <div class="mt-2 d-flex flex-column gap-1">
+                            <div style="border-left: 2px solid var(--glow-purple); padding-left: 15px;">
+                                <h4 style="color:var(--neon-cyan)">Start</h4>
+                                <p id="eStartFull" style="color:var(--text-secondary)"></p>
+                            </div>
+                            <div style="border-left: 2px solid var(--neon-pink); padding-left: 15px;">
+                                <h4 style="color:var(--neon-pink)">End</h4>
+                                <p id="eEndFull" style="color:var(--text-secondary)"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-tickets" class="tab-content">
+                    <div id="ticketsContainer"></div>
+
+                    <div class="card mt-2 p-4" style="padding:20px; display:none;" id="checkoutSection">
+                        <h3 class="mb-2">Attendee Details</h3>
+                        <div id="attendeesForms"></div>
+
+                        <div class="mt-2 pt-2" style="border-top:1px solid var(--border)">
+                            <div class="d-flex justify-between align-center mb-1">
+                                <span>Total Amount:</span>
+                                <h3 id="grandTotal" style="color:var(--neon-cyan)">₹0</h3>
+                            </div>
+                            <button class="btn btn-primary w-100" id="bookNowBtn">Confirm Booking</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-reviews" class="tab-content">
+                    <div class="d-flex align-center gap-2 mb-4 card p-4" style="padding:20px">
+                        <div style="text-align:center">
+                            <h2 id="rAvg" style="font-size:3rem; line-height:1">0.0</h2>
+                            <div id="rStars"></div>
+                            <p class="label mt-1" id="rCount">0 Reviews</p>
+                        </div>
+                        <div style="flex:1" id="rBars">
+                            <!-- Render via JS if we want, skipping for briefness -->
+                            <p style="color:var(--text-muted)">Reviews summary feature.</p>
+                        </div>
+                    </div>
+                    <div id="reviewsList" class="flex-column gap-1"></div>
+                </div>
+            </div>
+
+            <div class="right-col sticky-sidebar">
+                <div class="timer-box" id="countdownTimer">
+                    00d 00h 00m 00s
+                </div>
+                <button class="btn btn-primary w-100 mb-1" style="padding:15px; font-size:1.1rem"
+                    onclick="document.querySelector('[data-target=\'tab-tickets\']').click(); window.scrollTo({top:500, behavior:'smooth'})">Buy
+                    Tickets</button>
+                <button class="btn btn-outline w-100 mb-2" id="saveEventBtn">❤️ Save Event</button>
+
+                <div class="card p-4" style="padding:20px">
+                    <h4 class="mb-1">Event Location</h4>
+                    <p id="eLocationTxt" style="color:var(--text-secondary); margin-bottom: 20px; font-size: 0.9rem;">
+                    </p>
+                    <div
+                        style="width:100%; height:150px; background:var(--nebula); border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--border)">
+                        <span>📍 Map View placeholder</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-4"
+        style="color:var(--text-muted); padding:40px 0; border-top:1px solid var(--border); background:#000;">
+        <div class="container">
+            <h3 style="color:#fff; margin-bottom: 10px;">EVENTARA</h3>
+            <p>&copy; 2026 EVENTARA Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/event-detail.js?v=2"></script>
+</body>
+
+</html>

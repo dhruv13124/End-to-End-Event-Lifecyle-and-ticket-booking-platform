@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EVENTARA</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header d-flex justify-between align-center">
+                <a href="/" class="logo"
+                    style="text-decoration:none; color:#fff; font-family:'Poppins'; font-weight:800; letter-spacing:1px">EVENTARA</a>
+                <button class="hamburger" id="closeSidebar" style="display:none">×</button>
+            </div>
+
+            <div class="sidebar-user-info"
+                style="padding: 20px; border-bottom: 1px solid var(--border); display:flex; gap:10px; align-items:center;">
+                <div class="sidebar-avatar" id="dUserInitials">?</div>
+                <div style="flex:1">
+                    <div class="sidebar-user-name" id="dUserName">Loading...</div>
+                    <div class="sidebar-user-role" id="dUserRole">role</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav flex-column" id="navLinks">
+                <!-- Links dynamically inserted by JS based on role -->
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-outline w-100" id="logoutBtn"
+                    style="border-color:var(--danger); color:var(--danger)">Log Out</button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header class="topbar">
+                <button class="hamburger" id="openSidebar">☰</button>
+                <h2 id="pageTitle" style="font-size:1.5rem">Overview</h2>
+
+                <div class="topbar-right">
+                    <button class="btn-icon" onclick="window.location.hash='#notifications'">
+                        🔔
+                        <span class="notification-badge" id="unreadCount" style="display:none">0</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard-body" id="appRoot">
+                <div class="text-center" style="margin-top:100px; color:var(--text-muted)">Loading Dashboard...</div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="/js/dashboard/dashboard.js?v=5"></script>
+</body>
+
+</html>

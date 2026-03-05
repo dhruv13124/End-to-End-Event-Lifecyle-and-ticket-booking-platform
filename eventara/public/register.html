@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - EVENTARA</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .auth-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at center, var(--nebula) 0%, var(--void) 100%);
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            z-index: 1;
+            animation: floatOrb linear infinite;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--glow-purple);
+            top: -50px;
+            left: -50px;
+            animation-duration: 8s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--neon-pink);
+            bottom: -100px;
+            right: -50px;
+            animation-duration: 10s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-30px) scale(1.05);
+            }
+        }
+
+        .auth-card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .role-toggle {
+            display: flex;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: 0.3s;
+        }
+
+        .role-btn.active {
+            background: var(--glow-purple);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-bg">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+    </div>
+
+    <div class="card auth-card">
+        <a href="/" style="text-decoration:none">
+            <h2 style="font-weight:900; letter-spacing:1px; margin-bottom:5px;">EVENTARA</h2>
+        </a>
+        <p class="label text-secondary mb-2">Create Your Galaxy Account</p>
+
+        <div class="role-toggle" id="roleToggle">
+            <div class="role-btn active" data-role="attendee">I want to Attend</div>
+            <div class="role-btn" data-role="organizer">I want to Host</div>
+        </div>
+
+        <form id="registerForm" class="flex-column gap-1" style="text-align: left;">
+            <div>
+                <label class="label mb-1" style="display:block">Full Name</label>
+                <input type="text" id="regName" class="input-field" required placeholder="John Doe">
+            </div>
+            <div>
+                <label class="label mb-1" style="display:block">Email Address</label>
+                <input type="email" id="regEmail" class="input-field" required placeholder="name@domain.com">
+            </div>
+            <div id="orgNameGroup" style="display: none;">
+                <label class="label mb-1" style="display:block">Organization Name</label>
+                <input type="text" id="regOrg" class="input-field" placeholder="Acme Events Ltd.">
+            </div>
+            <div>
+                <label class="label mb-1" style="display:block">Password <span
+                        style="float:right; font-size: 0.75rem; color:var(--text-muted)">Min 8 characters</span></label>
+                <input type="password" id="regPassword" class="input-field" required placeholder="••••••••">
+            </div>
+            <div>
+                <label class="label mb-1" style="display:block">Confirm Password</label>
+                <input type="password" id="regConfirm" class="input-field" required placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mt-2" id="regBtn">Create Account</button>
+        </form>
+
+        <p class="mt-2" style="font-size:0.9rem; color:var(--text-secondary)">
+            Already have an account? <a href="/login.html"
+                style="color:var(--glow-purple-light); text-decoration:none; font-weight:600;">Sign In</a>
+        </p>
+    </div>
+
+    <script type="module" src="/js/auth.js"></script>
+</body>
+
+</html>
